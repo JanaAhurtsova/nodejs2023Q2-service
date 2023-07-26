@@ -49,6 +49,22 @@ export class ArtistService {
     if (!artist) {
       throw new NotFoundException(`Artist with id ${id} is not found`);
     }
+
+    db.favorites.artists = db.favorites.artists.filter(
+      (artistId) => artistId !== id,
+    );
+    db.tracks = db.tracks.map((track) => {
+      if (track.artistId === id) {
+        track.artistId = null;
+      }
+      return track;
+    });
+    db.albums = db.albums.map((album) => {
+      if (album.artistId === id) {
+        album.artistId = null;
+      }
+      return album;
+    });
     db.artists = db.artists.filter((artist) => artist.id !== id);
   }
 }
