@@ -7,11 +7,10 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { v4 as uuidv4 } from 'uuid';
 import { User } from './entities/user.entity';
+import db from '../db/db';
 
 @Injectable()
 export class UserService {
-  private users: User[] = [];
-
   async create(createUserDto: CreateUserDto) {
     const defaultVersion = 1;
     const user = {
@@ -21,16 +20,16 @@ export class UserService {
       createdAt: Date.now(),
       updatedAt: Date.now(),
     };
-    this.users.push(user);
+    db.users.push(user);
     return new User(user);
   }
 
   async findAll() {
-    return this.users.map((user) => new User(user));
+    return db.users.map((user) => new User(user));
   }
 
   async findOne(id: string) {
-    const user = this.users.find((user) => user.id === id);
+    const user = db.users.find((user) => user.id === id);
     if (!user) {
       throw new NotFoundException(`User with id ${id} is not found`);
     }
@@ -39,38 +38,36 @@ export class UserService {
 
   async update(id: string, updateUserDto: UpdateUserDto) {
     const { oldPassword, newPassword } = updateUserDto;
-    const userIndex = this.users.findIndex((user) => user.id === id);
+    const userIndex = db.users.findIndex((user) => user.id === id);
     const availableIndex = 0;
 
     if (userIndex < availableIndex) {
       throw new NotFoundException(`User with id ${id} is not found`);
     }
 
-    if (this.users[userIndex].password !== oldPassword) {
+    if (db.users[userIndex].password !== oldPassword) {
       throw new ForbiddenException('Old password is invalid');
     }
 
-    const version = this.users[userIndex].version + 1;
+    const version = db.users[userIndex].version + 1;
 
     const updatedUser = {
-      ...this.users[userIndex],
+      ...db.users[userIndex],
       version: version,
       password: newPassword,
       updatedAt: Date.now(),
     };
 
-    this.users[userIndex] = updatedUser;
+    db.users[userIndex] = updatedUser;
 
     return new User(updatedUser);
   }
 
   async remove(id: string) {
-    const user = this.users.find((user) => user.id === id);
+    const user = db.users.find((user) => user.id === id);
     if (!user) {
       throw new NotFoundException(`User with id ${id} is not found`);
     }
-    this.users = this.users.filter((user) => user.id !== id);
-
-    return this.users;
+    db.users = db.users.filter((user) => user.id !== id);
   }
 }

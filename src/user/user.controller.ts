@@ -6,8 +6,6 @@ import {
   Param,
   Delete,
   Put,
-  ValidationPipe,
-  UsePipes,
   ClassSerializerInterceptor,
   UseInterceptors,
   ParseUUIDPipe,
@@ -23,7 +21,6 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
-  @UsePipes(new ValidationPipe())
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
     const user = await this.userService.create(createUserDto);
