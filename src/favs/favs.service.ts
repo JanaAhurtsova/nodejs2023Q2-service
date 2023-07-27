@@ -32,26 +32,66 @@ export class FavsService {
     return { artists: artists, albums: albums, tracks: tracks };
   }
 
-  create(id: string, category: string) {
-    const item = db[`${category}s`].find((categ) => categ.id === id);
-    if (!item) {
+  createAlbum(albumId: string) {
+    const album = db.albums.find(({ id }) => id === albumId);
+    if (!album) {
       throw new UnprocessableEntityException(
-        `${category} with id ${id} is not found`,
+        `Album with id ${albumId} is not found`,
       );
     }
-    if (!db.favorites[`${category}s`].includes(id)) {
-      db.favorites[`${category}s`].push(id);
+    if (!db.favorites.albums.includes(albumId)) {
+      db.favorites.albums.push(albumId);
     }
-    return item;
+    return album;
   }
 
-  remove(id: string, category: string) {
-    const item = db[`${category}s`].find((categ) => categ.id === id);
-    if (!item) {
-      throw new NotFoundException(`${category} with id ${id} is not found`);
+  removeAlbum(albumId: string) {
+    const album = db.albums.find(({ id }) => id === albumId);
+    if (!album) {
+      throw new NotFoundException(`Album with id ${albumId} is not found`);
     }
-    db.favorites[`${category}s`] = db.favorites[`${category}s`].filter(
-      (categoryId) => categoryId !== id,
-    );
+    db.favorites.albums = db.favorites.albums.filter((id) => id !== albumId);
+  }
+
+  createArtist(artistId: string) {
+    const artist = db.artists.find(({ id }) => id === artistId);
+    if (!artist) {
+      throw new UnprocessableEntityException(
+        `Artist with id ${artistId} is not found`,
+      );
+    }
+    if (!db.favorites.artists.includes(artistId)) {
+      db.favorites.artists.push(artistId);
+    }
+    return artist;
+  }
+
+  removeArtist(artistId: string) {
+    const artist = db.artists.find(({ id }) => id === artistId);
+    if (!artist) {
+      throw new NotFoundException(`Artist with id ${artistId} is not found`);
+    }
+    db.favorites.artists = db.favorites.artists.filter((id) => id !== artistId);
+  }
+
+  createTrack(trackId: string) {
+    const track = db.tracks.find(({ id }) => id === trackId);
+    if (!track) {
+      throw new UnprocessableEntityException(
+        `Track with id ${trackId} is not found`,
+      );
+    }
+    if (!db.favorites.tracks.includes(trackId)) {
+      db.favorites.tracks.push(trackId);
+    }
+    return track;
+  }
+
+  removeTrack(trackId: string) {
+    const track = db.tracks.find(({ id }) => id === trackId);
+    if (!track) {
+      throw new NotFoundException(`Track with id ${trackId} is not found`);
+    }
+    db.favorites.tracks = db.favorites.tracks.filter((id) => id !== trackId);
   }
 }

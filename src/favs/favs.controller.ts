@@ -19,20 +19,36 @@ export class FavsController {
     return this.favsService.findAll();
   }
 
-  @Post(':category/:id')
-  create(
-    @Param('category') category: string,
-    @Param('id', new ParseUUIDPipe()) id: string,
-  ) {
-    return this.favsService.create(id, category);
+  @Post('album/:id')
+  createAlbum(@Param('id', new ParseUUIDPipe()) id: string) {
+    return this.favsService.createAlbum(id);
   }
 
-  @Delete(':category/:id')
+  @Delete('album/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  remove(
-    @Param('category') category: string,
-    @Param('id', new ParseUUIDPipe()) id: string,
-  ) {
-    return this.favsService.remove(id, category);
+  removeAlbum(@Param('id', new ParseUUIDPipe()) id: string) {
+    return this.favsService.removeAlbum(id);
+  }
+
+  @Post('track/:id')
+  createTrack(@Param('id', new ParseUUIDPipe()) id: string) {
+    return this.favsService.createTrack(id);
+  }
+
+  @Delete('track/:id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  removeTrack(@Param('id', new ParseUUIDPipe()) id: string) {
+    return this.favsService.removeTrack(id);
+  }
+
+  @Post('artist/:id')
+  createArtist(@Param('id', new ParseUUIDPipe()) id: string) {
+    return this.favsService.createArtist(id);
+  }
+
+  @Delete('artist/:id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  removeArtist(@Param('id', new ParseUUIDPipe()) id: string) {
+    return this.favsService.removeArtist(id);
   }
 }
