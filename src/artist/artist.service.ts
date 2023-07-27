@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';
 import { v4 as uuidv4 } from 'uuid';
-import db, { Artist } from '../db/db';
+import { db } from '../db/db';
 
 @Injectable()
 export class ArtistService {
@@ -15,7 +15,7 @@ export class ArtistService {
     return artist;
   }
 
-  findAll(): Artist[] {
+  findAll() {
     return db.artists;
   }
 

@@ -2,14 +2,13 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
 import { v4 as uuidv4 } from 'uuid';
-import db from '../db/db';
+import { db } from '../db/db';
 
 @Injectable()
 export class AlbumService {
   create(createAlbumDto: CreateAlbumDto) {
     const album = {
       id: uuidv4(),
-      year: 0,
       artistId: null,
       ...createAlbumDto,
     };

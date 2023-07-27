@@ -34,14 +34,22 @@ interface Favorites {
   tracks: string[]; // favorite tracks ids
 }
 
-export default {
-  users: [] as User[],
-  artists: [] as Artist[],
-  tracks: [] as Track[],
-  albums: [] as Album[],
+interface DB {
+  users: User[];
+  artists: Artist[];
+  tracks: Track[];
+  albums: Album[];
+  favorites: Favorites;
+}
+
+export const db: DB = {
+  users: [],
+  artists: [],
+  tracks: [],
+  albums: [],
   favorites: {
     artists: [],
     albums: [],
     tracks: [],
-  } as Favorites,
+  },
 };

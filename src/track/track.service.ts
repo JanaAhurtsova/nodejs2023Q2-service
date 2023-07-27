@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTrackDto } from './dto/create-track.dto';
 import { UpdateTrackDto } from './dto/update-track.dto';
-import db, { Track } from '../db/db';
+import { db } from '../db/db';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
@@ -17,7 +17,7 @@ export class TrackService {
     return track;
   }
 
-  findAll(): Track[] {
+  findAll() {
     return db.tracks;
   }
 
