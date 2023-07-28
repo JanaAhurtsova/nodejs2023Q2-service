@@ -13,8 +13,9 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   const config = new DocumentBuilder()
     .setTitle('Home Library Service')
-    .setDescription('The Home Library Service API description')
-    .setVersion('1.0')
+    .setDescription('Home music library service')
+    .setVersion('1.0.0')
+    .addServer('/doc')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('doc', app, document);

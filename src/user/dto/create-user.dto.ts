@@ -3,6 +3,7 @@ import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateUserDto {
   @ApiProperty({
+    type: 'string',
     example: 'string',
   })
   @IsNotEmpty()
@@ -10,6 +11,7 @@ export class CreateUserDto {
   login: string;
 
   @ApiProperty({
+    type: 'string',
     example: 'string',
   })
   @IsNotEmpty()
