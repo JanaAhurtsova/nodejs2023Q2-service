@@ -17,12 +17,13 @@ git clone https://github.com/JanaAhurtsova/nodejs2023Q2-service.git
 cd nodejs2023Q2-service
 ```
 
-
 ## Installing NPM modules
 
 ```
 npm install
 ```
+
+## Change .env.example file to .env
 
 ## Running application
 
