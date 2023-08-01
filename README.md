@@ -8,7 +8,13 @@
 ## Downloading
 
 ```
-git clone {repository URL}
+git clone https://github.com/JanaAhurtsova/nodejs2023Q2-service.git
+```
+
+## Going to downloaded folder
+
+```
+cd nodejs2023Q2-service
 ```
 
 ## Installing NPM modules
@@ -16,6 +22,8 @@ git clone {repository URL}
 ```
 npm install
 ```
+
+## Change .env.example file to .env
 
 ## Running application
 
